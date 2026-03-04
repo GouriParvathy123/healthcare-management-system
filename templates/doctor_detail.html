@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Profile</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .info {
+            margin: 8px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>{{ doctor.name }}</h2>
+
+    <div class="info"><strong>ID:</strong> {{ doctor.id }}</div>
+    <div class="info"><strong>Specialization:</strong> {{ doctor.specialization }}</div>
+    <div class="info"><strong>Age:</strong> {{ doctor.age }}</div>
+    <div class="info"><strong>Phone:</strong> {{ doctor.phone }}</div>
+    <div class="info"><strong>Address:</strong> {{ doctor.address }}</div>
+    <div class="info"><strong>Degrees:</strong> {{ doctor.degrees }}</div>
+    <div class="info"><strong>Cabin Number:</strong> {{ doctor.cabin_number }}</div>
+    <div class="info"><strong>Availability:</strong> {{ doctor.availability }}</div>
+    <div class="info"><strong>Joined On:</strong> {{ doctor.created_at }}</div>
+</div>
+
+<div class="card">
+    <h3>Associated Patients</h3>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Phone</th>
+        </tr>
+
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.age }}</td>
+            <td>{{ patient.phone }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>

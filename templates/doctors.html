@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctors Management</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+        }
+
+        .navbar {
+            background: #2d89ef;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stat-box {
+            flex: 1;
+            padding: 20px;
+            border-radius: 12px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .blue { background: #2d89ef; }
+        .green { background: #27ae60; }
+        .red { background: #e74c3c; }
+
+        .tab-buttons button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 8px;
+            background: #e0e0e0;
+            transition: 0.2s;
+        }
+
+        .tab-buttons .active {
+            background-color: #2d89ef;
+            color: white;
+        }
+
+        .tab {
+            display: none;
+        }
+
+        select, input {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        button.primary {
+            background-color: #2d89ef;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button.danger {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            background-color: #f2f2f2;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background-color: #fafafa;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .available {
+            background-color: #d4edda;
+            color: #2e7d32;
+        }
+
+        .not-available {
+            background-color: #f8d7da;
+            color: #c62828;
+        }
+
+        .search-bar {
+            margin-top: 15px;
+        }
+    </style>
+
+    <script>
+        function openTab(tabName) {
+            let tabs = document.getElementsByClassName("tab");
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].style.display = "none";
+            }
+
+            let buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).style.display = "block";
+            event.target.classList.add("active");
+        }
+
+        window.onload = function() {
+            document.getElementById("defaultTab").click();
+        }
+    </script>
+</head>
+
+<body>
+
+<div class="navbar">
+    🏥 Healthcare Admin - Doctors
+</div>
+
+<div class="container">
+
+<!-- Stats Cards -->
+<div class="stats">
+    <div class="stat-box blue">
+        Total Doctors<br>
+        <strong>{{ doctors|length }}</strong>
+    </div>
+
+    <div class="stat-box green">
+        Available<br>
+        <strong>
+            {{ doctors | selectattr("availability", "equalto", "Available") | list | length }}
+        </strong>
+    </div>
+
+    <div class="stat-box red">
+        Not Available<br>
+        <strong>
+            {{ doctors | selectattr("availability", "equalto", "Not Available") | list | length }}
+        </strong>
+    </div>
+</div>
+
+<div class="card">
+
+<div class="tab-buttons">
+    <button class="tab-btn" id="defaultTab" onclick="openTab('list')">Doctors</button>
+    <button class="tab-btn" onclick="openTab('add')">Add Doctor</button>
+    <button class="tab-btn" onclick="openTab('attendance')">Attendance</button>
+</div>
+
+<!-- ========================= -->
+<!-- TAB 1 -->
+<!-- ========================= -->
+<div id="list" class="tab">
+
+    <form method="GET" action="/doctors">
+        <select name="specialization">
+            <option value="">All Specializations</option>
+            {% for spec in specializations %}
+                <option value="{{ spec }}"
+                {% if selected_specialization == spec %} selected {% endif %}>
+                    {{ spec }}
+                </option>
+            {% endfor %}
+        </select>
+        <button class="primary" type="submit">Filter</button>
+    </form>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Search Doctor (frontend only)">
+    </div>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Status</th>
+            <th>Profile</th>
+            <th>Delete</th>
+        </tr>
+
+        {% for doctor in doctors %}
+        <tr>
+            <td>{{ doctor.name }}</td>
+            <td>{{ doctor.specialization }}</td>
+            <td>
+                {% if doctor.availability == "Available" %}
+                    <span class="badge available">Available</span>
+                {% else %}
+                    <span class="badge not-available">Not Available</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="/doctor/{{ doctor.id }}">View</a>
+            </td>
+            <td>
+                <form method="POST"
+                      action="/delete_doctor"
+                      onsubmit="return confirm('Delete this doctor?');">
+                    <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
+                    <button class="danger" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+<!-- ========================= -->
+<!-- TAB 2 -->
+<!-- ========================= -->
+<div id="add" class="tab">
+    <form method="POST" action="/add_doctor">
+        <input type="text" name="name" placeholder="Doctor Name" required>
+        <input type="text" name="specialization" placeholder="Specialization" required>
+        <select name="availability">
+            <option value="Available">Available</option>
+            <option value="Not Available">Not Available</option>
+        </select>
+        <button class="primary" type="submit">Add Doctor</button>
+    </form>
+</div>
+
+<!-- ========================= -->
+<!-- TAB 3 -->
+<!-- ========================= -->
+<div id="attendance" class="tab">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Current Status</th>
+            <th>Change Status</th>
+        </tr>
+
+        {% for doctor in doctors %}
+        <tr>
+            <td>{{ doctor.name }}</td>
+            <td>{{ doctor.availability }}</td>
+            <td>
+                <form method="POST" action="/update_availability">
+                    <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
+                    <select name="status">
+                        <option value="Available">Available</option>
+                        <option value="Not Available">Not Available</option>
+                    </select>
+                    <button class="primary" type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

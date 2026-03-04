@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Healthcare Admin Dashboard</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+}
+
+.navbar {
+    background: #1f2d3d;
+    color: white;
+    padding: 18px 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.container {
+    padding: 40px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    transition: 0.3s;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+.card h2 {
+    margin: 0;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #666;
+}
+
+.card a {
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 16px;
+    background: #2d89ef;
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    🏥 Healthcare Management System
+</div>
+
+<div class="container">
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>👨‍⚕️ Doctors</h2>
+            <p>Manage doctor profiles, availability & specialization</p>
+            <a href="/doctors">Open</a>
+        </div>
+
+        <div class="card">
+            <h2>🧑 Patients</h2>
+            <p>Manage patient records and doctor assignments</p>
+            <a href="/patients">Open</a>
+        </div>
+
+        <div class="card">
+            <h2>📅 Appointments</h2>
+            <p>Book & monitor appointments</p>
+            <a href="/appointments">Open</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

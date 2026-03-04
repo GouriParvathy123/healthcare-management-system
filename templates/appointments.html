@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointments</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+}
+
+.navbar {
+    background: #16a085;
+    color: white;
+    padding: 18px 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.container {
+    padding: 30px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+.stats {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.stat-box {
+    flex: 1;
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+    font-size: 18px;
+}
+
+.green { background: #16a085; }
+.blue { background: #2d89ef; }
+.orange { background: #f39c12; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: #f2f2f2;
+}
+
+tr:hover {
+    background: #fafafa;
+}
+
+button.primary {
+    background: #16a085;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    📅 Appointment Management
+</div>
+
+<div class="container">
+
+<!-- Stats -->
+<div class="stats">
+    <div class="stat-box green">
+        Total Appointments<br>
+        <strong>{{ appointments|length }}</strong>
+    </div>
+</div>
+
+<!-- Book Appointment -->
+<div class="card">
+    <h3>Book Appointment</h3>
+
+    <form method="POST" action="/book_appointment">
+        <select name="patient_id" required>
+            <option value="">Select Patient</option>
+            {% for patient in patients %}
+                <option value="{{ patient.id }}">
+                    {{ patient.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="doctor_id" required>
+            <option value="">Select Doctor</option>
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">
+                    {{ doctor.name }} ({{ doctor.specialization }})
+                </option>
+            {% endfor %}
+        </select>
+
+        <input type="datetime-local" name="appointment_datetime" required>
+
+        <button class="primary" type="submit">Book</button>
+    </form>
+</div>
+
+<!-- Appointment Table -->
+<div class="card">
+    <h3>All Appointments</h3>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Patient ID</th>
+            <th>Doctor ID</th>
+            <th>Date & Time</th>
+        </tr>
+
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.id }}</td>
+            <td>{{ appointment.patient_id }}</td>
+            <td>{{ appointment.doctor_id }}</td>
+            <td>{{ appointment.appointment_datetime }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</div>
+
+</body>
+</html>
