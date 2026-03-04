@@ -27,29 +27,30 @@ This version is independently designed and implemented with a structured service
 
 ---
 
-## 🧠 Project Architecture
+## 📂 Project Structure
 
+```text
 Healthcare Management/
 │
 ├── app.py
 ├── database/
-│ ├── connection.py
-│ └── schema.py
+│   ├── connection.py
+│   └── schema.py
 ├── models/
-│ ├── doctor.py
-│ ├── patient.py
-│ └── appointment.py
+│   ├── doctor.py
+│   ├── patient.py
+│   └── appointment.py
 ├── services/
-│ ├── doctor_service.py
-│ ├── patient_service.py
-│ └── appointment_service.py
+│   ├── doctor_service.py
+│   ├── patient_service.py
+│   └── appointment_service.py
 ├── templates/
-│ ├── dashboard.html
-│ ├── doctors.html
-│ ├── patient.html
-│ └── appointments.html
+│   ├── dashboard.html
+│   ├── doctors.html
+│   ├── patient.html
+│   └── appointments.html
 └── static/
-
+```
 
 ## 🛠 Tech Stack
 
@@ -88,3 +89,20 @@ Follow the steps below to run the application locally.
 ```bash
 git clone https://github.com/GouriParvathy123/healthcare-management-system.git
 cd healthcare-management-system
+```
+
+### 2. Create a Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+For Windows 
+```bash
+venv\Scripts\activate
+```
+
+For Linux/MAC
+```bash
+source venv/bin/activate
+```
