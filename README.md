@@ -119,8 +119,16 @@ The database tables are automatically created on startup.
 - Modular backend structure  
 - Clean UI layout  
 
-### v2.0 (In Progress)
+### 🔜 v2.0 (In Progress)
 - Billing system  
 - Revenue tracking  
 - Dashboard analytics  
+
+---
+
+📖 Background
+
+An earlier academic version of this project was built collaboratively during undergraduate coursework (2021).
+
+This repository represents a redesigned and independently implemented version with improved architecture, cleaner structure, and extended functionality.
 
