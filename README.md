@@ -126,7 +126,7 @@ The database tables are automatically created on startup.
 
 ---
 
-📖 Background
+### 📖 Background
 
 An earlier academic version of this project was built collaboratively during undergraduate coursework (2021).
 
