@@ -106,3 +106,39 @@ For Linux/MAC
 ```bash
 source venv/bin/activate
 ```
+
+### 3. Install Dependencies
+
+```bash
+pip install flask
+```
+
+### 4. Run the application
+
+```bash
+python app.py
+```
+
+### 5. Open in Browser
+
+Open the following URL in your browser:
+
+```text
+http://127.0.0.1:5000/
+```
+The database tables are automatically created on startup.
+
+
+## 📌 Version History
+
+### ✅ v1.0
+- Doctor, Patient, Appointment modules  
+- Service-layer architecture  
+- Modular backend structure  
+- Clean UI layout  
+
+### v2.0 (In Progress)
+- Billing system  
+- Revenue tracking  
+- Dashboard analytics  
+
