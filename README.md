@@ -54,24 +54,6 @@ Healthcare Management/
 
 ## 🛠 Tech Stack
 
-- Python 3  
-- Flask  
-- SQLite  
-- HTML / CSS (Jinja Templates)  
-- Git (Version Control)  
-
----
-
-# ⚙️ How To Run This Project
-
-Follow the steps below to run the application locally.
-
----
-
-### 1️⃣ Clone the Repository
-
-## 🛠 Tech Stack
-
 - Python 3
 - Flask
 - SQLite
